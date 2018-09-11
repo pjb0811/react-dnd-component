@@ -1,13 +1,30 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import ExampleComponent from 'react-dnd-list'
+import { Container } from 'react-dnd-list';
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
+      <div
+        style={{
+          display: 'flex'
+        }}
+      >
+        <div
+          style={{
+            flexGrow: 1
+          }}
+        >
+          <Container />
+        </div>
+        <div
+          style={{
+            flexGrow: 1
+          }}
+        >
+          {/* <Knight /> */}
+        </div>
       </div>
-    )
+    );
   }
 }
