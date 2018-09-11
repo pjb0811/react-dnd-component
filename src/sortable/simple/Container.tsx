@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { DragDropContext } from 'react-dnd';
+import { DragDropContext, DragLayer } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 const update = require('immutability-helper');
 
 const style = {
-  width: 400
+  width: 400,
+  height: 400
 };
 
 export interface ContainerState {
@@ -14,22 +15,30 @@ export interface ContainerState {
 }
 
 @DragDropContext(HTML5Backend)
+@DragLayer(monitor => ({
+  item: monitor.getItem(),
+  itemType: monitor.getItemType(),
+  currentOffset: monitor.getSourceClientOffset(),
+  isDragging: monitor.isDragging()
+}))
 class Container extends React.Component<{}, ContainerState> {
-  // tslint:disable-next-line ban-types
   pendingUpdateFn: any;
   requestedFrame: number | undefined;
 
   constructor(props: {}) {
     super(props);
 
-    this.moveItem = this.moveItem.bind(this);
-    this.drawFrame = this.drawFrame.bind(this);
-
     const cardsById: { [key: string]: any } = {};
     const cardsByIndex = [];
+    const { children } = this.props;
+    const newChildren = Array.isArray(children)
+      ? [...children]
+      : children
+        ? [children]
+        : [];
 
-    for (let i = 0; i < 5; i += 1) {
-      const card = { id: i, text: `test${i}` };
+    for (let i = 0; i < newChildren.length; i += 1) {
+      const card = { id: i, text: newChildren[i] };
       cardsById[card.id] = card;
       cardsByIndex[i] = card;
     }
@@ -63,24 +72,23 @@ class Container extends React.Component<{}, ContainerState> {
     );
   }
 
-  // tslint:disable-next-line ban-types
-  private scheduleUpdate(updateFn: any) {
+  scheduleUpdate = (updateFn: any) => {
     this.pendingUpdateFn = updateFn;
 
     if (!this.requestedFrame) {
       this.requestedFrame = requestAnimationFrame(this.drawFrame);
     }
-  }
+  };
 
-  private drawFrame() {
+  drawFrame = () => {
     const nextState = update(this.state, this.pendingUpdateFn);
     this.setState(nextState);
 
     this.pendingUpdateFn = undefined;
     this.requestedFrame = undefined;
-  }
+  };
 
-  private moveItem(id: string, afterId: string) {
+  moveItem = (id: string, afterId: string) => {
     const { cardsById, cardsByIndex } = this.state;
 
     const card = cardsById[id];
@@ -94,7 +102,7 @@ class Container extends React.Component<{}, ContainerState> {
         $splice: [[cardIndex, 1], [afterIndex, 0, card]]
       }
     });
-  }
+  };
 }
 
 export default Container;
