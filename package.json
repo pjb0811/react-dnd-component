@@ -1,10 +1,10 @@
 {
-  "name": "react-dnd-components",
+  "name": "react-dnd-component",
   "version": "1.0.1",
   "description": "components using react & react-dnd",
   "author": "pjb0811",
   "license": "MIT",
-  "repository": "pjb0811/react-dnd-components",
+  "repository": "pjb0811/react-dnd-component",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
