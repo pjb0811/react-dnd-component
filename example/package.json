@@ -1,6 +1,6 @@
 {
-  "name": "react-dnd-components-example",
-  "homepage": "https://pjb0811.github.io/react-dnd-components",
+  "name": "react-dnd-component-example",
+  "homepage": "https://pjb0811.github.io/react-dnd-component",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
@@ -10,7 +10,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dnd": "^5.0.0",
-    "react-dnd-components": "link:..",
+    "react-dnd-component": "link:..",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4"
   },

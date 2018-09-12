@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List, DragDropContext, HTML5Backend } from 'react-dnd-components';
+import { List, DragDropContext, HTML5Backend } from 'react-dnd-component';
 
 class App extends Component {
   render() {

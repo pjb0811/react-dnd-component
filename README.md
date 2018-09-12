@@ -1,13 +1,13 @@
-# react-dnd-components
+# react-dnd-component
 
 >
 
-[![NPM](https://img.shields.io/npm/v/react-dnd-components.svg)](https://www.npmjs.com/package/react-dnd-components) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-dnd-component.svg)](https://www.npmjs.com/package/react-dnd-component) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-dnd-components
+npm install --save react-dnd-component
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install --save react-dnd-components
 ```tsx
 import * as React from 'react';
 
-import MyComponent from 'react-dnd-components';
+import MyComponent from 'react-dnd-component';
 
 class Example extends React.Component {
   render() {
