@@ -9,28 +9,57 @@ class App extends Component {
       paddingTop: '20px'
     };
 
-    const listOne = [
-      { id: 1, text: 'Item 1' },
-      { id: 2, text: 'Item 2' },
-      { id: 3, text: 'Item 3' }
-    ];
-
-    const listTwo = [];
-
-    const listThree = [
-      { id: 4, text: 'Item 4' },
-      { id: 5, text: 'Item 5' },
-      { id: 6, text: 'Item 6' },
-      { id: 7, text: 'Item 7' },
-      { id: 8, text: 'Item 8' },
-      { id: 9, text: 'Item 9' }
-    ];
-
     return (
       <div style={{ ...style }}>
-        <List id={1} list={listOne} />
-        <List id={2} list={listTwo} />
-        <List id={3} list={listThree} />
+        <List
+          name={'test1'}
+          id={1}
+          width={200}
+          height={200}
+          style={{
+            background: 'yellow'
+          }}
+          activeStyle={{
+            background: 'red'
+          }}
+        >
+          <div style={{ width: 100, height: 100 }}>test1</div>
+          <div style={{ width: 100, height: 100 }}>test2</div>
+          <div style={{ width: 100, height: 100 }}>test3</div>
+          <div style={{ width: 100, height: 100 }}>test4</div>
+          <div style={{ width: 100, height: 100 }}>test5</div>
+          <div style={{ width: 100, height: 100 }}>test6</div>
+          <div style={{ width: 100, height: 100 }}>test1</div>
+          <div style={{ width: 100, height: 100 }}>test2</div>
+          <div style={{ width: 100, height: 100 }}>test3</div>
+          <div style={{ width: 100, height: 100 }}>test4</div>
+          <div style={{ width: 100, height: 100 }}>test5</div>
+          <div style={{ width: 100, height: 100 }}>test6</div>
+          <div style={{ width: 100, height: 100 }}>test1</div>
+          <div style={{ width: 100, height: 100 }}>test2</div>
+          <div style={{ width: 100, height: 100 }}>test3</div>
+          <div style={{ width: 100, height: 100 }}>test4</div>
+          <div style={{ width: 100, height: 100 }}>test5</div>
+          <div style={{ width: 100, height: 100 }}>test6</div>
+        </List>
+        <List
+          name={'test1'}
+          id={2}
+          width={200}
+          height={200}
+          activeStyle={{
+            background: 'blue'
+          }}
+        >
+          <div>test7</div>
+          <div>test8</div>
+          <div>test9</div>
+          <div>test10</div>
+          <div>test11</div>
+          <div>test12</div>
+        </List>
+        {/* <List name={'test2'} id={3} />
+        <List name={'test2'} id={4} /> */}
       </div>
     );
   }
