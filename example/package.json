@@ -1,15 +1,18 @@
 {
-  "name": "react-dnd-list-example",
-  "homepage": "https://pjb0811.github.io/react-dnd-list",
+  "name": "react-dnd-components-example",
+  "homepage": "https://pjb0811.github.io/react-dnd-components",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "immutability-helper": "^2.7.1",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
+    "react-dnd": "^5.0.0",
+    "react-dnd-components": "link:..",
     "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4",
-    "react-dnd-list": "link:.."
+    "react-scripts": "^1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

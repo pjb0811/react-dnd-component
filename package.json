@@ -1,10 +1,10 @@
 {
-  "name": "react-dnd-list",
+  "name": "react-dnd-components",
   "version": "1.0.1",
-  "description": "list app using react & react-dnd",
+  "description": "components using react & react-dnd",
   "author": "pjb0811",
   "license": "MIT",
-  "repository": "pjb0811/react-dnd-list",
+  "repository": "pjb0811/react-dnd-components",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -22,6 +22,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
+    "immutability-helper": "^2.7.1",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1"
   },
@@ -38,7 +39,6 @@
     "babel-runtime": "^6.26.0",
     "cross-env": "^5.1.4",
     "gh-pages": "^1.2.0",
-    "immutability-helper": "^2.7.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts-ts": "^2.16.0",
