@@ -59,7 +59,6 @@ class Container extends React.Component<Props, State> {
       list: newChildren.map((child, i) => {
         return {
           id: `${id}${i}`,
-          index: i,
           child
         };
       })
@@ -124,11 +123,11 @@ class Container extends React.Component<Props, State> {
           height
         }}
       >
-        {list.map((item: { id: number; index: number }) => {
+        {list.map((item: { id: number }, i) => {
           return (
             <Item
               key={item.id}
-              index={item.index}
+              index={i}
               listId={this.props.id}
               listName={this.props.name}
               item={item}

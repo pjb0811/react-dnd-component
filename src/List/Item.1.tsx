@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
-// import styles from './item.css';
 
 type Props = {
   index: number;
@@ -82,7 +81,6 @@ class Item extends React.Component<Props> {
 
   render() {
     const {
-      style,
       item,
       isDragging,
       connectDragSource,
@@ -91,7 +89,7 @@ class Item extends React.Component<Props> {
     const opacity = isDragging ? 0 : 1;
 
     return connectDragSource(
-      connectDropTarget(<div style={{ opacity, ...style }}>{item.child}</div>)
+      connectDropTarget(<div style={{ opacity }}>{item.child}</div>)
     );
   }
 }

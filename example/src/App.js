@@ -42,6 +42,7 @@ class App extends Component {
           <div style={{ ...itemStyle, background: 'green' }}>test5</div>
         </List>
 
+        {/*
         <List
           name={'test1'}
           id={2}
@@ -60,6 +61,7 @@ class App extends Component {
           <div style={{ ...itemStyle, background: 'gray' }}>test9</div>
           <div style={{ ...itemStyle, background: 'gray' }}>test10</div>
         </List>
+        */}
       </div>
     );
   }
