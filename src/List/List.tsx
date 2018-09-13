@@ -110,15 +110,19 @@ class Container extends React.Component<Props, State> {
     } = this.props;
     const { list } = this.state;
     const isActive = canDrop && isOver;
-    const defaultStyle = {
-      display: 'flex',
-      flexWrap: 'wrap',
-      overflow: 'auto'
-    };
     const listStyle = isActive ? activeStyle : style;
 
     return connectDropTarget(
-      <div style={{ ...listStyle, ...defaultStyle, width, height }}>
+      <div
+        style={{
+          ...listStyle,
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'auto',
+          width,
+          height
+        }}
+      >
         {list.map((item: { id: number }, i) => {
           return (
             <Item

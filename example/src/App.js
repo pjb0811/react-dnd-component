@@ -9,13 +9,8 @@ class App extends Component {
       paddingTop: '20px'
     };
 
-    const listStyle = {
-      width: 200,
-      height: 200
-    };
-
     const itemStyle = {
-      width: 100,
+      width: 200,
       height: 100,
       display: 'inline-flex',
       justifyContent: 'center',
@@ -29,7 +24,10 @@ class App extends Component {
         <List
           name={'test1'}
           id={1}
-          {...listStyle}
+          width={200}
+          height={600}
+          itemWidth={200}
+          itemHeight={100}
           style={{
             background: 'yellow'
           }}
@@ -43,10 +41,12 @@ class App extends Component {
           <div style={{ ...itemStyle, background: 'green' }}>test4</div>
           <div style={{ ...itemStyle, background: 'green' }}>test5</div>
         </List>
+
         <List
           name={'test1'}
           id={2}
-          {...listStyle}
+          width={200}
+          height={600}
           style={{
             background: 'orange'
           }}
