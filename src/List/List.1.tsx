@@ -1,6 +1,6 @@
 import * as React from 'react';
 import update from 'immutability-helper';
-import Item from './Item';
+import Item from './Item.1';
 import { DropTarget } from 'react-dnd';
 
 type Props = {

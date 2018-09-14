@@ -6,12 +6,13 @@ class App extends Component {
     const style = {
       display: 'flex',
       justifyContent: 'space-around',
-      paddingTop: '20px'
+      paddingTop: '20px',
+      flexWrap: 'wrap'
     };
 
     const itemStyle = {
       width: 200,
-      height: 100,
+      height: 200,
       display: 'inline-flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -25,9 +26,8 @@ class App extends Component {
           name={'test1'}
           id={1}
           width={200}
-          height={600}
-          itemWidth={200}
-          itemHeight={100}
+          height={200}
+          rows={3}
           style={{
             background: 'yellow'
           }}
@@ -42,12 +42,12 @@ class App extends Component {
           <div style={{ ...itemStyle, background: 'green' }}>test5</div>
         </List>
 
-        {/*
         <List
           name={'test1'}
           id={2}
           width={200}
-          height={600}
+          height={200}
+          rows={3}
           style={{
             background: 'orange'
           }}
@@ -61,7 +61,6 @@ class App extends Component {
           <div style={{ ...itemStyle, background: 'gray' }}>test9</div>
           <div style={{ ...itemStyle, background: 'gray' }}>test10</div>
         </List>
-        */}
       </div>
     );
   }

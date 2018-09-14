@@ -1,56 +1,41 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
-import { DragSource, DropTarget } from 'react-dnd';
-// import styles from './item.css';
+import {
+  DragSource,
+  DropTarget,
+  ConnectDragSource,
+  ConnectDropTarget,
+  DropTargetMonitor
+} from 'react-dnd';
 
 type Props = {
-  index: number;
+  id: string;
+  child: React.ReactChild;
   listId: string | number;
   listName: string | number;
-  item: any;
-  removeItem: (index: number) => void;
-  moveItem: (dragIndex: number, hoverIndex: number) => void;
+  isDragging?: boolean;
+  connectDragSource?: ConnectDragSource;
+  connectDropTarget?: ConnectDropTarget;
+  moveItem: (id: string, afterId: string) => void;
+  removeItem: (index: string) => void;
 };
 
 const itemTarget = {
-  hover(props: any, monitor: any, component: any) {
-    const dragIndex = monitor.getItem().index;
-    const hoverIndex = props.index;
-    const sourceListId = monitor.getItem().listId;
-    const sourceListName = monitor.getItem().listName;
+  hover(props: Props, monitor: DropTargetMonitor) {
+    const draggedId = monitor.getItem().id;
 
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-
-    const hoverBounding: any = findDOMNode(component);
-    const hoverBoundingRect = hoverBounding.getBoundingClientRect();
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-    const clientOffset = monitor.getClientOffset();
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
-    }
-
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return;
-    }
-
-    if (props.listName === sourceListName && props.listId === sourceListId) {
-      props.moveItem(dragIndex, hoverIndex);
-      monitor.getItem().index = hoverIndex;
+    if (draggedId !== props.id) {
+      props.moveItem(draggedId, props.id);
     }
   }
 };
 
 const itemSource = {
-  beginDrag(props: any) {
+  beginDrag(props: Props) {
     return {
-      index: props.index,
+      id: props.id,
+      child: props.child,
       listId: props.listId,
-      listName: props.listName,
-      item: props.item
+      listName: props.listName
     };
   },
 
@@ -63,7 +48,7 @@ const itemSource = {
       dropResult.listName === item.listName &&
       dropResult.listId !== item.listId
     ) {
-      props.removeItem(item.index);
+      props.removeItem(item.id);
     }
   }
 };
@@ -76,22 +61,21 @@ const itemSource = {
   isDragging: monitor.isDragging()
 }))
 class Item extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
+  public render() {
     const {
-      style,
-      item,
+      child,
       isDragging,
       connectDragSource,
       connectDropTarget
-    }: any = this.props;
+    } = this.props;
     const opacity = isDragging ? 0 : 1;
 
-    return connectDragSource(
-      connectDropTarget(<div style={{ opacity, ...style }}>{item.child}</div>)
+    return (
+      connectDragSource &&
+      connectDropTarget &&
+      connectDragSource(
+        connectDropTarget(<div style={{ opacity }}>{child}</div>)
+      )
     );
   }
 }
