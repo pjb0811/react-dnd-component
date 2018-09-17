@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { DragDropContext, DropTarget } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import Item from './Item';
 import update from 'immutability-helper';
+import Item from './Item';
+import { DropTarget } from 'react-dnd';
 
 type Props = {
   id: string | number;
@@ -10,10 +9,15 @@ type Props = {
   width: number;
   height: number;
   rows: number;
+  style: any;
+  activeStyle: any;
+  canDrop: boolean;
+  isOver: boolean;
+  connectDropTarget: any;
 };
 
 type State = {
-  items: any;
+  list: Array<any>;
 };
 
 const itemTarget = {
@@ -32,15 +36,19 @@ const itemTarget = {
   }
 };
 
-@DragDropContext(HTML5Backend)
 @DropTarget('ITEM', itemTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
 }))
 class Container extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  state = {
+    width: 200,
+    height: 200,
+    list: []
+  };
+
+  componentDidMount() {
     const { id, children } = this.props;
     const newChildren = Array.isArray(children)
       ? [...children]
@@ -48,86 +56,88 @@ class Container extends React.Component<Props, State> {
         ? [children]
         : [];
 
-    this.state = {
-      items: newChildren.map((child, i) => {
+    this.setState({
+      list: newChildren.map((child, i) => {
         return {
           id: `${id}${i}`,
           child
         };
       })
-    };
+    });
   }
 
   pushItem = (item: any) => {
     this.setState(
       update(this.state, {
-        items: {
+        list: {
           $push: [item]
         }
       })
     );
   };
 
-  removeItem = (id: string) => {
-    const { items } = this.state;
-    const item = items.find((item: { id: string }) => item.id === id);
-    const itemIndex = items.indexOf(item);
-
+  removeItem = (index: number) => {
     this.setState(
       update(this.state, {
-        items: {
-          $splice: [[itemIndex, 1]]
+        list: {
+          $splice: [[index, 1]]
         }
       })
     );
   };
 
-  moveItem = (id: string, afterId: string) => {
-    const { items } = this.state;
-    const item = items.find((item: { id: string }) => item.id === id);
-    const afterItem = items.find((item: { id: string }) => item.id === afterId);
-    const itemIndex = items.indexOf(item);
-    const afterIndex = items.indexOf(afterItem);
+  moveItem = (dragIndex: number, hoverIndex: number) => {
+    const { list } = this.state;
+    const dragItem = list[dragIndex];
 
     this.setState(
       update(this.state, {
-        items: {
-          $splice: [[itemIndex, 1], [afterIndex, 0, item]]
+        list: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]]
         }
       })
     );
   };
 
   render() {
-    const { width = 200, height = 200, rows = 1 } = this.props;
-    const { items } = this.state;
-    const style = {
-      width: width * rows,
-      height: height * Math.ceil(items.length / rows),
-      overflow: 'auto',
-      display: 'flex'
-    };
+    const {
+      width = 200,
+      height = 200,
+      rows = 1,
+      style,
+      activeStyle,
+      canDrop,
+      isOver,
+      connectDropTarget
+    } = this.props;
+    const { list } = this.state;
+    const isActive = canDrop && isOver;
+    const listStyle = isActive ? activeStyle : style;
 
-    return (
-      <div style={{ ...style, flexWrap: 'wrap' }}>
-        {items.map((item: { id: string; child: React.ReactChild }) => {
-          if (item) {
-            return (
-              <Item
-                key={item.id}
-                id={item.id}
-                child={item.child}
-                listId={this.props.id}
-                listName={this.props.name}
-                removeItem={this.removeItem}
-                moveItem={this.moveItem}
-              />
-            );
-          }
-
-          console.log(item);
-
-          return <div />;
+    return connectDropTarget(
+      <div
+        style={{
+          ...listStyle,
+          display: 'flex',
+          width: width * rows,
+          height: height * Math.ceil(list.length / rows),
+          minHeight: height,
+          overflow: 'auto',
+          flexWrap: 'wrap'
+        }}
+      >
+        {list.map((item: { id: number }, i) => {
+          return (
+            <Item
+              key={item.id}
+              index={i}
+              item={item}
+              listId={this.props.id}
+              listName={this.props.name}
+              removeItem={this.removeItem}
+              moveItem={this.moveItem}
+            />
+          );
         })}
       </div>
     );

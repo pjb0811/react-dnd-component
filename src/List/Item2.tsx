@@ -4,36 +4,34 @@ import {
   DropTarget,
   ConnectDragSource,
   ConnectDropTarget,
-  DropTargetMonitor,
-  DragSourceMonitor
+  DropTargetMonitor
 } from 'react-dnd';
 
 type Props = {
-  index: number;
+  id: string;
+  child: React.ReactChild;
   listId: string | number;
   listName: string | number;
-  item: any;
   isDragging?: boolean;
   connectDragSource?: ConnectDragSource;
   connectDropTarget?: ConnectDropTarget;
-  removeItem: (index: number) => void;
-  moveItem: (dragIndex: number, hoverIndex: number) => void;
+  moveItem: (id: string, afterId: string) => void;
+  removeItem: (index: string) => void;
 };
 
 const itemTarget = {
   hover(props: Props, monitor: DropTargetMonitor) {
-    const dragIndex = monitor.getItem().index;
-    const hoverIndex = props.index;
+    const draggedId = monitor.getItem().id;
+    const afterId = props.id;
     const sourceListId = monitor.getItem().listId;
     const sourceListName = monitor.getItem().listName;
 
-    if (dragIndex === hoverIndex) {
+    if (draggedId === afterId) {
       return;
     }
 
     if (props.listName === sourceListName && props.listId === sourceListId) {
-      props.moveItem(dragIndex, hoverIndex);
-      monitor.getItem().index = hoverIndex;
+      props.moveItem(draggedId, props.id);
     }
   }
 };
@@ -41,23 +39,25 @@ const itemTarget = {
 const itemSource = {
   beginDrag(props: Props) {
     return {
-      index: props.index,
+      id: props.id,
+      child: props.child,
       listId: props.listId,
-      listName: props.listName,
-      item: props.item
+      listName: props.listName
     };
   },
 
-  endDrag(props: Props, monitor: DragSourceMonitor) {
+  endDrag(props: any, monitor: any) {
     const item = monitor.getItem();
     const dropResult = monitor.getDropResult();
+
+    console.log(item, dropResult);
 
     if (
       dropResult &&
       dropResult.listName === item.listName &&
       dropResult.listId !== item.listId
     ) {
-      props.removeItem(item.index);
+      props.removeItem(item.id);
     }
   }
 };
@@ -70,13 +70,9 @@ const itemSource = {
   isDragging: monitor.isDragging()
 }))
 class Item extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
+  public render() {
     const {
-      item,
+      child,
       isDragging,
       connectDragSource,
       connectDropTarget
@@ -87,7 +83,7 @@ class Item extends React.Component<Props> {
       connectDragSource &&
       connectDropTarget &&
       connectDragSource(
-        connectDropTarget(<div style={{ opacity }}>{item.child}</div>)
+        connectDropTarget(<div style={{ opacity }}>{child}</div>)
       )
     );
   }

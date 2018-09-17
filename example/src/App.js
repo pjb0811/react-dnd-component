@@ -35,9 +35,9 @@ class App extends Component {
             background: 'red'
           }}
         >
-          <div style={{ ...itemStyle, background: 'green' }}>test1</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test2</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test3</div>
+          <div style={{ ...itemStyle, background: 'green' }}>1</div>
+          <div style={{ ...itemStyle, background: 'green' }}>2</div>
+          <div style={{ ...itemStyle, background: 'green' }}>3</div>
           <div style={{ ...itemStyle, background: 'green' }}>test4</div>
           <div style={{ ...itemStyle, background: 'green' }}>test5</div>
         </List>
