@@ -120,7 +120,7 @@ class Container extends React.Component<Props, State> {
           ...listStyle,
           display: 'flex',
           width: width * rows,
-          height: height * Math.ceil(list.length / rows),
+          height: list.length ? height * Math.ceil(list.length / rows) : height,
           minHeight: height,
           overflow: 'auto',
           flexWrap: 'wrap'

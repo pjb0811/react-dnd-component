@@ -50,8 +50,6 @@ const itemSource = {
     const item = monitor.getItem();
     const dropResult = monitor.getDropResult();
 
-    console.log(item, dropResult);
-
     if (
       dropResult &&
       dropResult.listName === item.listName &&
