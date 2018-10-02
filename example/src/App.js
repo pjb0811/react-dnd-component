@@ -23,13 +23,17 @@ class App extends Component {
     return (
       <div style={{ ...style }}>
         <List
+          onRef={list1 => {
+            this.list1 = list1;
+          }}
           name={'test1'}
           id={1}
           width={200}
           height={200}
           rows={3}
           style={{
-            background: 'yellow'
+            background: 'yellow',
+            margin: 10
           }}
           activeStyle={{
             background: 'red'
@@ -43,13 +47,17 @@ class App extends Component {
         </List>
 
         <List
+          onRef={list2 => {
+            this.list2 = list2;
+          }}
           name={'test1'}
           id={2}
           width={200}
           height={200}
           rows={3}
           style={{
-            background: 'orange'
+            background: 'orange',
+            margin: 10
           }}
           activeStyle={{
             background: 'blue'

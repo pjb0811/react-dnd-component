@@ -14,6 +14,7 @@ type Props = {
   canDrop: boolean;
   isOver: boolean;
   connectDropTarget: any;
+  onRef: (component: any) => void;
 };
 
 type State = {
@@ -55,6 +56,8 @@ class Container extends React.Component<Props, State> {
       : children
         ? [children]
         : [];
+
+    this.props.onRef(this);
 
     this.setState({
       list: newChildren.map((child, i) => {
