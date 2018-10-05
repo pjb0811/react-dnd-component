@@ -14,7 +14,7 @@ type Props = {
   canDrop: boolean;
   isOver: boolean;
   connectDropTarget: any;
-  onRef: (component: any) => void;
+  onChange: (state: State) => void;
 };
 
 type State = {
@@ -44,8 +44,6 @@ const itemTarget = {
 }))
 class Container extends React.Component<Props, State> {
   state = {
-    width: 200,
-    height: 200,
     list: []
   };
 
@@ -56,8 +54,6 @@ class Container extends React.Component<Props, State> {
       : children
         ? [children]
         : [];
-
-    this.props.onRef(this);
 
     this.setState({
       list: newChildren.map((child, i) => {
@@ -70,35 +66,48 @@ class Container extends React.Component<Props, State> {
   }
 
   pushItem = (item: any) => {
+    const { onChange = () => {} } = this.props;
+
     this.setState(
       update(this.state, {
         list: {
           $push: [item]
         }
-      })
+      }),
+      () => {
+        onChange(this.state);
+      }
     );
   };
 
   removeItem = (index: number) => {
+    const { onChange = () => {} } = this.props;
+
     this.setState(
       update(this.state, {
         list: {
           $splice: [[index, 1]]
         }
-      })
+      }),
+      () => {
+        onChange(this.state);
+      }
     );
   };
 
   moveItem = (dragIndex: number, hoverIndex: number) => {
     const { list } = this.state;
     const dragItem = list[dragIndex];
-
+    const { onChange = () => {} } = this.props;
     this.setState(
       update(this.state, {
         list: {
           $splice: [[dragIndex, 1], [hoverIndex, 0, dragItem]]
         }
-      })
+      }),
+      () => {
+        onChange(this.state);
+      }
     );
   };
 

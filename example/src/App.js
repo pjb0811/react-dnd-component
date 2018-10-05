@@ -23,9 +23,6 @@ class App extends Component {
     return (
       <div style={{ ...style }}>
         <List
-          onRef={list1 => {
-            this.list1 = list1;
-          }}
           name={'test1'}
           id={1}
           width={200}
@@ -38,6 +35,9 @@ class App extends Component {
           activeStyle={{
             background: 'red'
           }}
+          onChange={state => {
+            console.log(state);
+          }}
         >
           <div style={{ ...itemStyle, background: 'green' }}>1</div>
           <div style={{ ...itemStyle, background: 'green' }}>2</div>
@@ -47,9 +47,6 @@ class App extends Component {
         </List>
 
         <List
-          onRef={list2 => {
-            this.list2 = list2;
-          }}
           name={'test1'}
           id={2}
           width={200}
