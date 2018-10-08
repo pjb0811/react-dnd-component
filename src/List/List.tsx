@@ -142,12 +142,14 @@ class Container extends React.Component<Props, State> {
         }}
       >
         {list.map((item: { id: number }, i) => {
-          /* const x = (i % rows) * width;
+          /*
+          const x = (i % rows) * width;
           const y = Math.floor(i / rows) * height;
           const options = {
             stiffness: 500,
             damping: 32
-          }; */
+          };
+          */
 
           /* return <Motion
             key={item.id}
