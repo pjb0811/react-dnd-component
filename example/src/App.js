@@ -35,15 +35,13 @@ class App extends Component {
           activeStyle={{
             background: 'red'
           }}
-          onChange={state => {
-            console.log(state);
-          }}
+          onChange={state => {}}
         >
           <div style={{ ...itemStyle, background: 'green' }}>1</div>
           <div style={{ ...itemStyle, background: 'green' }}>2</div>
           <div style={{ ...itemStyle, background: 'green' }}>3</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test4</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test5</div>
+          <div style={{ ...itemStyle, background: 'green' }}>4</div>
+          <div style={{ ...itemStyle, background: 'green' }}>5</div>
         </List>
 
         <List
@@ -60,11 +58,11 @@ class App extends Component {
             background: 'blue'
           }}
         >
-          <div style={{ ...itemStyle, background: 'gray' }}>test6</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test7</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test8</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test9</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test10</div>
+          <div style={{ ...itemStyle, background: 'gray' }}>6</div>
+          <div style={{ ...itemStyle, background: 'gray' }}>7</div>
+          <div style={{ ...itemStyle, background: 'gray' }}>8</div>
+          <div style={{ ...itemStyle, background: 'gray' }}>9</div>
+          <div style={{ ...itemStyle, background: 'gray' }}>10</div>
         </List>
       </div>
     );
