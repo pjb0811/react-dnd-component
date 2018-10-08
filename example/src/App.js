@@ -20,6 +20,16 @@ class App extends Component {
       fontSize: 20
     };
 
+    const item = () => {
+      return Array.from({ length: 10 }, (x, i) => {
+        return (
+          <div key={i} style={{ ...itemStyle, background: 'green' }}>
+            {i}
+          </div>
+        );
+      });
+    };
+
     return (
       <div style={{ ...style }}>
         <List
@@ -37,11 +47,7 @@ class App extends Component {
           }}
           onChange={state => {}}
         >
-          <div style={{ ...itemStyle, background: 'green' }}>1</div>
-          <div style={{ ...itemStyle, background: 'green' }}>2</div>
-          <div style={{ ...itemStyle, background: 'green' }}>3</div>
-          <div style={{ ...itemStyle, background: 'green' }}>4</div>
-          <div style={{ ...itemStyle, background: 'green' }}>5</div>
+          {item()}
         </List>
 
         <List

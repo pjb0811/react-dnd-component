@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
+// import { findDOMNode } from 'react-dom';
 import {
   DragSource,
   DropTarget,
@@ -8,8 +8,8 @@ import {
   DropTargetMonitor,
   DragSourceMonitor
 } from 'react-dnd';
-import { XYCoord } from 'dnd-core';
-import styles from './item.css';
+// import { XYCoord } from 'dnd-core';
+// import styles from './item.css';
 
 type Props = {
   index: number;
@@ -25,7 +25,7 @@ type Props = {
 };
 
 const itemTarget = {
-  hover(props: Props, monitor: DropTargetMonitor, component: any) {
+  hover(props: Props, monitor: DropTargetMonitor) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     const sourceListId = monitor.getItem().listId;
@@ -35,6 +35,7 @@ const itemTarget = {
       return;
     }
 
+    /*
     const hoverBoundingRect = (findDOMNode(
       component
     ) as Element).getBoundingClientRect();
@@ -47,6 +48,7 @@ const itemTarget = {
     if (hoverClientX < hoverMiddleX || hoverClientY < hoverMiddleY) {
       return;
     }
+    */
 
     /*
     if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
@@ -112,7 +114,7 @@ class Item extends React.Component<Props> {
   render() {
     const {
       item,
-      style,
+      // style,
       isDragging,
       connectDragSource,
       connectDropTarget
@@ -123,11 +125,7 @@ class Item extends React.Component<Props> {
       connectDragSource &&
       connectDropTarget &&
       connectDragSource(
-        connectDropTarget(
-          <div className={styles.item} style={{ ...style, opacity }}>
-            {item.child}
-          </div>
-        )
+        connectDropTarget(<div style={{ opacity }}>{item.child}</div>)
       )
     );
   }
