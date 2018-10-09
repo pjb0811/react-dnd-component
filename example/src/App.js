@@ -6,7 +6,7 @@ import NativeFilesSample from './NativeFilesSamples';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div style={{height: 2000}}>
         {/* <ListSample /> */}
         <NativeFilesSample />
       </div>
