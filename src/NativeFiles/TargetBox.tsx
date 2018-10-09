@@ -5,7 +5,6 @@ import {
   ConnectDropTarget,
   DropTargetMonitor
 } from 'react-dnd';
-import FileList from './FileList';
 
 const style: React.CSSProperties = {
   border: '1px solid gray',
@@ -30,6 +29,9 @@ type Props = {
   canDrop?: boolean;
   onDrop: (props: Props, monitor: DropTargetMonitor) => void;
   droppedFiles: any[];
+  children: (
+    params: { isActive: boolean | undefined; files: any[] }
+  ) => React.Component;
 };
 
 @DropTarget(
@@ -42,23 +44,24 @@ type Props = {
   })
 )
 class TargetBox extends React.Component<Props> {
-  public render() {
-    const { canDrop, isOver, connectDropTarget, droppedFiles } = this.props;
+  render() {
+    const {
+      canDrop,
+      isOver,
+      connectDropTarget,
+      droppedFiles,
+      children
+    } = this.props;
     const isActive = canDrop && isOver;
 
     if (!canDrop && !droppedFiles.length) {
       return null;
     }
 
-    console.log(canDrop, !!droppedFiles.length);
-
     return (
       connectDropTarget &&
       connectDropTarget(
-        <div style={style}>
-          {isActive ? 'Release to drop' : 'Drag file here'}
-          <FileList files={droppedFiles} />
-        </div>
+        <div style={style}>{children({ isActive, files: droppedFiles })}</div>
       )
     );
   }

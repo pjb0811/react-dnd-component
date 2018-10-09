@@ -3,38 +3,43 @@ import { DropTargetMonitor } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import TargetBox from './TargetBox';
 
-export interface ContainerState {
-  droppedFiles: any[];
-}
+type Props = {
+  children: (
+    params: { isActive: boolean | undefined; files: any[] }
+  ) => React.Component;
+};
 
-class Container extends React.Component<{}, ContainerState> {
-  constructor(props: {}) {
+type State = {
+  droppedFiles: any[];
+};
+
+class Container extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
-    this.handleFileDrop = this.handleFileDrop.bind(this);
     this.state = { droppedFiles: [] };
   }
 
   render() {
     const { FILE } = NativeTypes;
+    const { children } = this.props;
     const { droppedFiles } = this.state;
 
     return (
-      <div>
-        <TargetBox
-          accepts={[FILE]}
-          droppedFiles={droppedFiles}
-          onDrop={this.handleFileDrop}
-        />
-      </div>
+      <TargetBox
+        accepts={[FILE]}
+        droppedFiles={droppedFiles}
+        onDrop={this.handleFileDrop}
+        children={children}
+      />
     );
   }
 
-  handleFileDrop(_item: any, monitor: DropTargetMonitor) {
+  handleFileDrop = (_item: any, monitor: DropTargetMonitor) => {
     if (monitor) {
       const droppedFiles = monitor.getItem().files;
       this.setState({ droppedFiles });
     }
-  }
+  };
 }
 
 export default Container;
