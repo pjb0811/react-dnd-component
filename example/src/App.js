@@ -7,8 +7,8 @@ class App extends Component {
   render() {
     return (
       <div style={{ height: 2000 }}>
-        <ListSample />
-        {/* <NativeFilesSample /> */}
+        {/* <ListSample /> */}
+        <NativeFilesSample />
       </div>
     );
   }

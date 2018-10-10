@@ -95,6 +95,60 @@ class App extends Component {
 export default DragDropContext(HTML5Backend)(App);
 ```
 
+### Native Files
+
+[demo](https://codesandbox.io/s/6j6x9jp183)
+
+```tsx
+import React, { Component } from 'react';
+import {
+  NativeFiles,
+  DragDropContext,
+  HTML5Backend
+} from 'react-dnd-component';
+
+class App extends Component {
+  render() {
+    return (
+      <NativeFiles>
+        {({ canDrop, isOver, files }) => {
+          return <FileList canDrop={canDrop} isOver={isOver} files={files} />;
+        }}
+      </NativeFiles>
+    );
+  }
+}
+
+const style = {
+  width: 200,
+  height: 200,
+  border: '1px solid'
+};
+
+class FileList extends React.Component {
+  render() {
+    const { files, canDrop, isOver } = this.props;
+    const isActive = canDrop && isOver;
+
+    if (files.length === 0) {
+      return (
+        <div style={style}>
+          <div>{isActive ? 'Release to drop' : 'Drag file here'}</div>
+        </div>
+      );
+    }
+
+    return <div style={style}>{this.list(files)}</div>;
+  }
+
+  list = files => {
+    return files.map(file => <div key={file.name}>name: {file.name}</div>);
+  };
+}
+
+export default DragDropContext(HTML5Backend)(App);
+```
+
 ## License
 
 MIT © [pjb0811](https://github.com/pjb0811)
