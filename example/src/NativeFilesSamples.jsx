@@ -6,8 +6,8 @@ class NativeFilesSamples extends React.Component {
   render() {
     return (
       <NativeFiles>
-        {({ isActive, files }) => {
-          return <FileList files={files} />;
+        {props => {
+          return <FileList {...props} />;
         }}
       </NativeFiles>
     );
