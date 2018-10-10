@@ -43,12 +43,10 @@ class TargetBox extends React.Component<Props> {
       children
     } = this.props;
 
-    const isActive = canDrop && isOver;
-
     return (
       connectDropTarget &&
       connectDropTarget(
-        <div>{children({ canDrop, isActive, files: droppedFiles })}</div>
+        <div>{children({ canDrop, isOver, files: droppedFiles })}</div>
       )
     );
   }

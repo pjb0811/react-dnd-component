@@ -20,7 +20,6 @@ type Props = {
 
 type State = {
   list: Array<any>;
-  styles: Array<any>;
 };
 
 const itemTarget = {
@@ -46,8 +45,7 @@ const itemTarget = {
 }))
 class Container extends React.Component<Props, State> {
   state = {
-    list: [],
-    styles: []
+    list: []
   };
 
   componentDidMount() {
@@ -151,7 +149,8 @@ class Container extends React.Component<Props, State> {
           };
           */
 
-          /* return <Motion
+          /*
+          return <Motion
             key={item.id}
             style={{
               transformX: spring(x, options),
@@ -161,7 +160,8 @@ class Container extends React.Component<Props, State> {
             {({ transformX, transformY }) => (
 
             )}
-          </Motion> */
+          </Motion>
+          */
 
           return (
             <Item

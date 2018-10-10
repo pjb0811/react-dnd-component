@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const styles = {
+const style = {
   width: 200,
   height: 200,
   border: '1px solid'
@@ -8,26 +8,22 @@ const styles = {
 
 class FileList extends React.Component {
   render() {
-    const { files } = this.props;
+    const { files, canDrop, isOver } = this.props;
+    const isActive = canDrop && isOver;
+
     if (files.length === 0) {
-      return <div style={styles}>null</div>;
+      return (
+        <div style={style}>
+          <div>{isActive ? 'Release to drop' : 'Drag file here'}</div>
+        </div>
+      );
     }
 
-    return <div styles={styles}>{this.list(files)}</div>;
+    return <div style={style}>{this.list(files)}</div>;
   }
 
   list = files => {
-    const reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = () => {
-      const { result } = reader;
-      const base64 = result ? result.toString().split(',')[1] : '';
-      console.log(base64);
-    };
-    reader.onerror = error => {
-      console.log('Error: ', error);
-    };
-    return files.map(file => <li key={file.name}>name: {file.name}</li>);
+    return files.map(file => <div key={file.name}>name: {file.name}</div>);
   };
 }
 

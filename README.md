@@ -14,6 +14,8 @@ npm install --save react-dnd-component
 
 ### List
 
+[demo](https://codesandbox.io/s/ll724prxrq)
+
 ```tsx
 import React, { Component } from 'react';
 import { List, DragDropContext, HTML5Backend } from 'react-dnd-component';
@@ -23,17 +25,13 @@ class App extends Component {
     const style = {
       display: 'flex',
       justifyContent: 'space-around',
-      paddingTop: '20px'
-    };
-
-    const listStyle = {
-      width: 200,
-      height: 200
+      paddingTop: '20px',
+      flexWrap: 'wrap'
     };
 
     const itemStyle = {
-      width: 100,
-      height: 100,
+      width: 200,
+      height: 200,
       display: 'inline-flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -41,41 +39,53 @@ class App extends Component {
       fontSize: 20
     };
 
+    const item = length => {
+      return Array.from({ length }, (x, i) => {
+        return (
+          <div key={i} style={{ ...itemStyle, background: 'green' }}>
+            {i}
+          </div>
+        );
+      });
+    };
+
     return (
       <div style={{ ...style }}>
         <List
           name={'test1'}
           id={1}
-          {...listStyle}
+          width={200}
+          height={200}
+          rows={3}
           style={{
-            background: 'yellow'
+            background: 'yellow',
+            margin: 10
           }}
           activeStyle={{
             background: 'red'
           }}
+          onChange={state => {
+            console.log(state);
+          }}
         >
-          <div style={{ ...itemStyle, background: 'green' }}>test1</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test2</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test3</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test4</div>
-          <div style={{ ...itemStyle, background: 'green' }}>test5</div>
+          {item(5)}
         </List>
+
         <List
           name={'test1'}
           id={2}
-          {...listStyle}
+          width={200}
+          height={200}
+          rows={3}
           style={{
-            background: 'orange'
+            background: 'orange',
+            margin: 10
           }}
           activeStyle={{
             background: 'blue'
           }}
         >
-          <div style={{ ...itemStyle, background: 'gray' }}>test6</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test7</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test8</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test9</div>
-          <div style={{ ...itemStyle, background: 'gray' }}>test10</div>
+          {item(5)}
         </List>
       </div>
     );
