@@ -20,8 +20,9 @@ type Props = {
   isOver?: boolean;
   canDrop?: boolean;
   onDrop: (props: Props, monitor: DropTargetMonitor) => void;
-  droppedFiles: any[];
+  files: any[];
   children: (params: any) => React.Component;
+  removeFiles: () => void;
 };
 
 @DropTarget(
@@ -39,14 +40,15 @@ class TargetBox extends React.Component<Props> {
       canDrop,
       isOver,
       connectDropTarget,
-      droppedFiles,
-      children
+      files,
+      children,
+      removeFiles
     } = this.props;
 
     return (
       connectDropTarget &&
       connectDropTarget(
-        <div>{children({ canDrop, isOver, files: droppedFiles })}</div>
+        <div>{children({ canDrop, isOver, files, removeFiles })}</div>
       )
     );
   }

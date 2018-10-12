@@ -111,8 +111,15 @@ class App extends Component {
   render() {
     return (
       <NativeFiles>
-        {({ canDrop, isOver, files }) => {
-          return <FileList canDrop={canDrop} isOver={isOver} files={files} />;
+        {({ canDrop, isOver, files, removeFiles }) => {
+          return (
+            <FileList
+              canDrop={canDrop}
+              isOver={isOver}
+              files={files}
+              removeFiles={removeFiles}
+            />
+          );
         }}
       </NativeFiles>
     );
@@ -127,7 +134,7 @@ const style = {
 
 class FileList extends React.Component {
   render() {
-    const { files, canDrop, isOver } = this.props;
+    const { files, canDrop, isOver, removeFiles } = this.props;
     const isActive = canDrop && isOver;
 
     if (files.length === 0) {
@@ -138,7 +145,12 @@ class FileList extends React.Component {
       );
     }
 
-    return <div style={style}>{this.list(files)}</div>;
+    return (
+      <div style={style}>
+        {this.list(files)}
+        <button onClick={removeFiles}>remove files</button>
+      </div>
+    );
   }
 
   list = files => {

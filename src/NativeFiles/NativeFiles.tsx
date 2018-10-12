@@ -8,35 +8,42 @@ type Props = {
 };
 
 type State = {
-  droppedFiles: any[];
+  files: any[];
 };
 
 class Container extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { droppedFiles: [] };
+    this.state = { files: [] };
   }
 
   render() {
     const { FILE } = NativeTypes;
     const { children } = this.props;
-    const { droppedFiles } = this.state;
+    const { files } = this.state;
 
     return (
       <TargetBox
         accepts={[FILE]}
-        droppedFiles={droppedFiles}
+        files={files}
         onDrop={this.handleFileDrop}
         children={children}
+        removeFiles={this.removeFiles}
       />
     );
   }
 
   handleFileDrop = (_item: any, monitor: DropTargetMonitor) => {
     if (monitor) {
-      const droppedFiles = monitor.getItem().files;
-      this.setState({ droppedFiles });
+      const files = monitor.getItem().files;
+      this.setState({ files });
     }
+  };
+
+  removeFiles = () => {
+    this.setState({
+      files: []
+    });
   };
 }
 

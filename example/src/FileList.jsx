@@ -8,7 +8,7 @@ const style = {
 
 class FileList extends React.Component {
   render() {
-    const { files, canDrop, isOver } = this.props;
+    const { files, canDrop, isOver, removeFiles } = this.props;
     const isActive = canDrop && isOver;
 
     if (files.length === 0) {
@@ -19,7 +19,12 @@ class FileList extends React.Component {
       );
     }
 
-    return <div style={style}>{this.list(files)}</div>;
+    return (
+      <div style={style}>
+        {this.list(files)}
+        <button onClick={removeFiles}>close</button>
+      </div>
+    );
   }
 
   list = files => {
