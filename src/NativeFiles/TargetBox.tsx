@@ -21,7 +21,7 @@ type Props = {
   canDrop?: boolean;
   onDrop: (props: Props, monitor: DropTargetMonitor) => void;
   files: any[];
-  children: (params: any) => React.Component;
+  children: (params: any) => React.Component | Element;
   removeFiles: () => void;
 };
 

@@ -4,7 +4,7 @@ import { NativeTypes } from 'react-dnd-html5-backend';
 import TargetBox from './TargetBox';
 
 type Props = {
-  children: (params: any) => React.Component<{}, {}, any>;
+  children: (params: any) => React.Component | Element;
 };
 
 type State = {
