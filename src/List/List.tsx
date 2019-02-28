@@ -2,7 +2,7 @@ import * as React from 'react';
 import update from 'immutability-helper';
 import Item from './Item';
 import { DropTarget } from 'react-dnd';
-// import { Motion, spring } from 'react-motion';
+import { Motion, spring } from 'react-motion';
 
 type Props = {
   id: string | number;
@@ -53,8 +53,8 @@ class Container extends React.Component<Props, State> {
     const newChildren = Array.isArray(children)
       ? [...children]
       : children
-        ? [children]
-        : [];
+      ? [children]
+      : [];
 
     this.setState({
       list: newChildren.map((child, i) => {
@@ -140,30 +140,39 @@ class Container extends React.Component<Props, State> {
         }}
       >
         {list.map((item: { id: number }, i) => {
-          /*
           const x = (i % rows) * width;
           const y = Math.floor(i / rows) * height;
           const options = {
             stiffness: 500,
             damping: 32
           };
-          */
-
-          /*
-          return <Motion
-            key={item.id}
-            style={{
-              transformX: spring(x, options),
-              transformY: spring(y, options)
-            }}
-          >
-            {({ transformX, transformY }) => (
-
-            )}
-          </Motion>
-          */
 
           return (
+            <Motion
+              key={item.id}
+              style={{
+                transformX: spring(x, options),
+                transformY: spring(y, options)
+              }}
+            >
+              {({ transformX, transformY }) => (
+                <Item
+                  key={item.id}
+                  index={i}
+                  item={item}
+                  listId={this.props.id}
+                  listName={this.props.name}
+                  removeItem={this.removeItem}
+                  moveItem={this.moveItem}
+                  style={{
+                    transform: `translate3d(${transformX}px, ${transformY}px, 0)`
+                  }}
+                />
+              )}
+            </Motion>
+          );
+
+          /* return (
             <Item
               key={item.id}
               index={i}
@@ -178,7 +187,7 @@ class Container extends React.Component<Props, State> {
                 }
               }
             />
-          );
+          ); */
         })}
       </div>
     );

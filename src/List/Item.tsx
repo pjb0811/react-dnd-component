@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { findDOMNode } from 'react-dom';
 import {
   DragSource,
   DropTarget,
@@ -8,7 +7,8 @@ import {
   DropTargetMonitor,
   DragSourceMonitor
 } from 'react-dnd';
-// import { XYCoord } from 'dnd-core';
+import { findDOMNode } from 'react-dom';
+import { XYCoord } from 'dnd-core';
 // import styles from './item.css';
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
 };
 
 const itemTarget = {
-  hover(props: Props, monitor: DropTargetMonitor) {
+  hover(props: Props, monitor: DropTargetMonitor, component: Element) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     const sourceListId = monitor.getItem().listId;
@@ -35,7 +35,6 @@ const itemTarget = {
       return;
     }
 
-    /*
     const hoverBoundingRect = (findDOMNode(
       component
     ) as Element).getBoundingClientRect();
@@ -45,28 +44,21 @@ const itemTarget = {
     const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left;
     const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
-    if (hoverClientX < hoverMiddleX || hoverClientY < hoverMiddleY) {
+    /* if (hoverClientX < hoverMiddleX || hoverClientY < hoverMiddleY) {
       return;
-    }
-    */
+    } */
 
-    /*
-    if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
-      return;
-    }
-
-    if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
-      return;
+    if (dragIndex < hoverIndex) {
+      if (hoverClientX < hoverMiddleX / 2 || hoverClientY < hoverMiddleY / 2) {
+        return;
+      }
     }
 
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
+    if (dragIndex > hoverIndex) {
+      if (hoverClientX > hoverMiddleX || hoverClientY > hoverMiddleY) {
+        return;
+      }
     }
-
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return;
-    }
-    */
 
     if (props.listName === sourceListName && props.listId === sourceListId) {
       props.moveItem(dragIndex, hoverIndex);
@@ -125,7 +117,9 @@ class Item extends React.Component<Props> {
       connectDragSource &&
       connectDropTarget &&
       connectDragSource(
-        connectDropTarget(<div style={{ opacity }}>{item.child}</div>)
+        connectDropTarget(
+          <div style={{ opacity, position: 'relative' }}>{item.child}</div>
+        )
       )
     );
   }

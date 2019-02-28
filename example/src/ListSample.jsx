@@ -20,10 +20,10 @@ class ListSample extends React.Component {
       fontSize: 20
     };
 
-    const item = length => {
+    const item = (length, color) => {
       return Array.from({ length }, (x, i) => {
         return (
-          <div key={i} style={{ ...itemStyle, background: 'green' }}>
+          <div key={i} style={{ ...itemStyle, background: color }}>
             {i}
           </div>
         );
@@ -39,17 +39,16 @@ class ListSample extends React.Component {
           height={200}
           rows={3}
           style={{
-            background: 'yellow',
-            margin: 10
+            background: 'yellow'
           }}
           activeStyle={{
             background: 'red'
           }}
           onChange={state => {
-            console.log(state);
+            // console.log(state);
           }}
         >
-          {item(5)}
+          {item(5, 'green')}
         </List>
 
         <List
@@ -59,14 +58,13 @@ class ListSample extends React.Component {
           height={200}
           rows={3}
           style={{
-            background: 'orange',
-            margin: 10
+            background: 'orange'
           }}
           activeStyle={{
             background: 'blue'
           }}
         >
-          {item(5)}
+          {item(5, 'navy')}
         </List>
       </div>
     );
